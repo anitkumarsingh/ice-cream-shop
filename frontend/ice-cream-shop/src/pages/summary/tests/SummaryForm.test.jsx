@@ -4,9 +4,9 @@ import SummaryForm from '../SummaryForm';
 describe('Testing Summary form', () => {
 	test('Enabling and Disabling button on checking and unchecking checkbox', () => {
 		render(<SummaryForm />);
-		const orderSubmitBtn = screen.getByRole('button', { name: 'Submit Order' });
+		const orderSubmitBtn = screen.getByRole('button', { name: 'Confirm order' });
 		const termsAndConditionCheckbox = screen.getByRole('checkbox', {
-			name: 'Terms and Conditions'
+			name: 'I agree to Terms and Conditions'
 		});
 		expect(orderSubmitBtn).toBeDisabled();
 		fireEvent.click(termsAndConditionCheckbox);

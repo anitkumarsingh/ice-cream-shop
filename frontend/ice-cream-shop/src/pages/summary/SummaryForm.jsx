@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const SummaryForm = () => {
 	const [disabled, setDisabled] = useState(true);
 
+	const checkboxLabel = (
+		<span>
+			I agree to
+			<span style={{ color: 'blue' }}> Terms and Conditions</span>
+		</span>
+	);
 	return (
-		<div className='text-center mt-5'>
-			<button disabled={disabled}>Submit Order</button>
-			<br />
-			<input
-				type='checkbox'
-				id='terms and conditions'
-				onChange={() => setDisabled(!disabled)}
-			/>
-			<label htmlFor='terms and conditions'>Terms and Conditions</label>
-		</div>
+		<>
+			<Form>
+				<Form.Group controlId='terms-and-conditions'>
+					<Form.Check
+						type='checkbox'
+						onChange={() => setDisabled(!disabled)}
+						label={checkboxLabel}
+					/>
+				</Form.Group>
+				<Button variant='primary' type='submit' disabled={disabled}>
+					Confirm order
+				</Button>
+			</Form>
+		</>
 	);
 };
 
