@@ -14,4 +14,24 @@ describe('Testing Summary form', () => {
 		await user.click(termsAndConditionCheckbox);
 		expect(orderSubmitBtn).toBeEnabled();
 	});
+  describe('Popover appearing and disappearing on mouse in-out', () => {
+		test('Popover response to hover', async () => {
+			const user = userEvent.setup();
+			// popover starts out disappeared
+			const hiddenPopover = screen.queryByText(/no ice-cream will be delivered/i);
+			await user.hover(hiddenPopover);
+			expect(hiddenPopover).not.toBeInTheDocument();
+
+			// popover apprear when mouse over
+			const termsAndConditions = screen.getByText(/terms and conditions/i);
+			await user.hover(termsAndConditions);
+			const popover = screen.getByText(/No ice-cream will be delivered/i);
+			expect(popover).toBeInTheDocument();
+
+			// popover disappeared when mouse out
+			await user.unhover(termsAndConditions);
+			expect(popover).not.toBeInTheDocument();
+		});
+	});
+ 
 });
