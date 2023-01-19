@@ -16,16 +16,19 @@ describe('Testing Summary form', () => {
 	});
   describe('Popover appearing and disappearing on mouse in-out', () => {
 		test('Popover response to hover', async () => {
+      render(<SummaryForm />);
 			const user = userEvent.setup();
 			// popover starts out disappeared
-			const hiddenPopover = screen.queryByText(/no ice-cream will be delivered/i);
+			const hiddenPopover = screen.queryByText(
+				/no ice cream will actually be delivered/i
+			);
 			await user.hover(hiddenPopover);
 			expect(hiddenPopover).not.toBeInTheDocument();
 
 			// popover apprear when mouse over
 			const termsAndConditions = screen.getByText(/terms and conditions/i);
 			await user.hover(termsAndConditions);
-			const popover = screen.getByText(/No ice-cream will be delivered/i);
+			const popover = screen.getByText(/no ice cream will actually be delivered/i);
 			expect(popover).toBeInTheDocument();
 
 			// popover disappeared when mouse out
