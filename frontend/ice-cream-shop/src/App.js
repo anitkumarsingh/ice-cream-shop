@@ -1,5 +1,11 @@
+import SummaryForm from './pages/summary/SummaryForm';
+
 const App = () => {
-	return <>Ice-cream shop</>;
+	return (
+		<>
+			<SummaryForm />
+		</>
+	);
 };
 
 export default App;
