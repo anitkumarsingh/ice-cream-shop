@@ -16,4 +16,20 @@ describe('Display image for each option', () => {
 			'Salted caramel scoop'
 		]);
 	});
+  test('Displays images from each of tooping option from server', async () => {
+		render(<Option optionType='toppings' />);
+		// find tooping images
+		const toopingImages = await screen.findAllByRole('img', { name: /tooping$/i });
+		expect(toopingImages).toHaveLength(6);
+		// checking for alt text
+		const toopingAltTxt = toopingImages.map((item) => item.alt);
+		expect(toopingAltTxt).toEqual([
+			'M&Ms tooping',
+			'Hot fudge tooping',
+			'Peanut butter cups tooping',
+			'Gummi bears tooping',
+			'Mochi tooping',
+			'Cherries tooping'
+		]);
+	});
 });
