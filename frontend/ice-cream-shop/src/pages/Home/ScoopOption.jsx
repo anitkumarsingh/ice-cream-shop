@@ -3,8 +3,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import { BASE_URL } from '../../constants/api';
 import { useOrderDetails } from '../../context/OrderDetails';
 
-const ScoopToppingOption = ({ name, imagePath, optionType }) => {
-	console.log(optionType);
+const ScoopOption = ({ name, imagePath, optionType }) => {
 	const { updateOptionCount } = useOrderDetails();
 	const handleChange = (e) =>
 		updateOptionCount(name, parseInt(e.target.value), optionType);
@@ -24,4 +23,4 @@ const ScoopToppingOption = ({ name, imagePath, optionType }) => {
 	);
 };
 
-export default ScoopToppingOption;
+export default ScoopOption;

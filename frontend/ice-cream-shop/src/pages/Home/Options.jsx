@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/api';
-import ScoopToppingOption from './ScoopToppingOption';
+import ScoopOption from './ScoopOption';
+import ToppingOption from './ToopingOption';
+
 import { Row } from 'react-bootstrap';
 import AlertBanner from '../../components/Alert';
 import { pricePerItem } from '../../constants/pricePerItem';
@@ -21,7 +23,7 @@ const Options = ({ optionType }) => {
 			})
 			.catch((err) => setIsError(true));
 	}, [optionType]);
-	const ItemComponent = optionType === 'scoops' ? ScoopToppingOption : ScoopToppingOption;
+	const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
 	const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
 	const renderOptions = items.map((item) => (

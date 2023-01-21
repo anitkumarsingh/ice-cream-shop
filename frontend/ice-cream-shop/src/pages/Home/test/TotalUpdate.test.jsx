@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import Options from '../Options';
 
 describe('Scoops subtotal and topping subtotal updates', () => {
-	test('Updates scoops total and topping total when options changes', async () => {
+	test('Updates scoops  subTotal when options changes', async () => {
 		const user = userEvent.setup();
 		render(<Options optionType='scoops' />);
 		// start with zero dollar
@@ -25,5 +25,30 @@ describe('Scoops subtotal and topping subtotal updates', () => {
 		await user.clear(chocolateInput);
 		await user.type(chocolateInput, '2');
 		expect(scoopSubTotal).toHaveTextContent('6.00');
+	});
+	test('Update topping subTotal when checkbox checked', async () => {
+		const user = userEvent.setup();
+		render(<Options optionType='toppings' />);
+		const toppingSubTotal = screen.getByText('Toppings total :$', { exact: false });
+		expect(toppingSubTotal).toHaveTextContent('0.00');
+
+		const toppingGummiCheckBox = await screen.findByRole('checkbox', {
+			name: /Gummi bears/i
+		});
+		expect(toppingGummiCheckBox).not.toBeChecked();
+		await user.click(toppingGummiCheckBox);
+		expect(toppingGummiCheckBox).toBeChecked();
+		expect(toppingSubTotal).toHaveTextContent('1.50');
+		const toppingHotFudgeCheckBox = await screen.findByRole('checkbox', {
+			name: /Hot Fudge/i
+		});
+		expect(toppingHotFudgeCheckBox).not.toBeChecked();
+		await user.click(toppingHotFudgeCheckBox);
+		expect(toppingHotFudgeCheckBox).toBeChecked();
+		expect(toppingSubTotal).toHaveTextContent('3.00');
+
+		// remove hot fudge
+		await user.click(toppingHotFudgeCheckBox);
+		expect(toppingSubTotal).toHaveTextContent('1.50');
 	});
 });
