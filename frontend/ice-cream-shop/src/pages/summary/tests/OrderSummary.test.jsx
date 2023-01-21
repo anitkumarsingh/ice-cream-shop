@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '../../../utils/testing-utils';
 import OrderSummary from '../OrderSummary';
 
 describe('Testing Order form', () => {

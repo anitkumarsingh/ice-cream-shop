@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../../utils/testing-utils';
 import userEvent from '@testing-library/user-event';
 import SummaryForm from '../SummaryForm';
 
@@ -14,9 +14,9 @@ describe('Testing Summary form', () => {
 		await user.click(termsAndConditionCheckbox);
 		expect(orderSubmitBtn).toBeEnabled();
 	});
-  describe('Popover appearing and disappearing on mouse in-out', () => {
+	describe('Popover appearing and disappearing on mouse in-out', () => {
 		test('Popover response to hover', async () => {
-      render(<SummaryForm />);
+			render(<SummaryForm />);
 			const user = userEvent.setup();
 			// popover starts out disappeared
 			const hiddenPopover = screen.queryByText(
@@ -36,5 +36,4 @@ describe('Testing Summary form', () => {
 			expect(popover).not.toBeInTheDocument();
 		});
 	});
- 
 });
