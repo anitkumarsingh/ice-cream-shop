@@ -1,7 +1,6 @@
 import React from 'react';
 import { useOrderDetails } from '../../context/OrderDetails';
 import { formatCurrency } from '../../utils/formatCurrency';
-import SummaryForm from './SummaryForm';
 
 const OrderSummary = () => {
 	const { total, optionsCount } = useOrderDetails();
@@ -26,8 +25,9 @@ const OrderSummary = () => {
 			<ul>{scoopsList}</ul>
 			<h2>Toppings :{formatCurrency(total.toppings)}</h2>
 			<ul>{toppingsList}</ul>
-			<h2>Grand Total:{formatCurrency(total['grandTotal'])}</h2>
-			<SummaryForm />
+			<div className='mt-5 mb-5'>
+				<h2>Grand Total : {formatCurrency(total.scoops + total.toppings)}</h2>
+			</div>
 		</>
 	);
 };

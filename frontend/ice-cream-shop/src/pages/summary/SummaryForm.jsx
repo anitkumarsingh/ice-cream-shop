@@ -28,6 +28,7 @@ const SummaryForm = () => {
 						label={checkboxLabel}
 					/>
 				</Form.Group>
+				<br />
 				<Button variant='primary' type='submit' disabled={disabled}>
 					Confirm order
 				</Button>
