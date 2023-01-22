@@ -53,5 +53,8 @@ export const handler = [
 				}
 			])
 		);
+	}),
+	rest.post(`${BASE_URL}/confirmation`, (req, res, ctx) => {
+		return res(ctx.json({ orderNumber: '1' }));
 	})
 ];
