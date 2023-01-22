@@ -1,6 +1,7 @@
 import { screen, render } from '../../../utils/testing-utils';
 import userEvent from '@testing-library/user-event';
 import Options from '../Options';
+import Order from '../Order';
 
 describe('Scoops subtotal and topping subtotal updates', () => {
 	test('Updates scoops  subTotal when options changes', async () => {
@@ -50,5 +51,45 @@ describe('Scoops subtotal and topping subtotal updates', () => {
 		// remove hot fudge
 		await user.click(toppingHotFudgeCheckBox);
 		expect(toppingSubTotal).toHaveTextContent('1.50');
+	});
+});
+
+describe('Grand total', () => {
+	test('grand total start with $0.00', () => {
+		render(<Order />);
+		const grandTotalHeading = screen.getByRole('heading', { name: /Grand Total : \$/i });
+		expect(grandTotalHeading).toHaveTextContent('0.00');
+	});
+	test('grand total updates properly if scoops is added first', async () => {
+		const user = userEvent.setup();
+		render(<Order />);
+		const grandTotalHeading = screen.getByRole('heading', { name: /Grand Total : \$/i });
+		const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+		await user.clear(vanillaInput);
+		await user.type(vanillaInput, '2');
+		expect(grandTotalHeading).toHaveTextContent('4.00');
+		const toppingGummiCheckBox = await screen.findByRole('checkbox', {
+			name: /Gummi bears/i
+		});
+		await user.click(toppingGummiCheckBox);
+		expect(grandTotalHeading).toHaveTextContent('5.50');
+		await user.click(toppingGummiCheckBox);
+		expect(grandTotalHeading).toHaveTextContent('4.00');
+	});
+	test('grand total updates properly if topping is added first', async () => {
+		const user = userEvent.setup();
+		render(<Order />);
+		const grandTotalHeading = screen.getByRole('heading', { name: /Grand Total : \$/i });
+		const toppingGummiCheckBox = await screen.findByRole('checkbox', {
+			name: /Gummi bears/i
+		});
+		await user.click(toppingGummiCheckBox);
+		expect(grandTotalHeading).toHaveTextContent('1.50');
+		const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+		await user.clear(vanillaInput);
+		await user.type(vanillaInput, '3');
+		expect(grandTotalHeading).toHaveTextContent('7.50');
+		await user.click(toppingGummiCheckBox);
+		expect(grandTotalHeading).toHaveTextContent('6.00');
 	});
 });

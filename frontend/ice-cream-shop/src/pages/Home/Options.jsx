@@ -40,10 +40,12 @@ const Options = ({ optionType }) => {
 	return (
 		<>
 			<h2 className='mt-3'>{title}</h2>
+			<hr />
 			<p>{formatCurrency(pricePerItem[optionType])} each</p>
 			<p>
 				{title} total :{formatCurrency(total[optionType])}
 			</p>
+			<hr />
 			<Row>{renderOptions}</Row>
 		</>
 	);

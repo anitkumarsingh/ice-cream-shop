@@ -26,6 +26,7 @@ const OrderSummary = () => {
 			<ul>{scoopsList}</ul>
 			<h2>Toppings :{formatCurrency(total.toppings)}</h2>
 			<ul>{toppingsList}</ul>
+			<h2>Grand Total:{formatCurrency(total['grandTotal'])}</h2>
 			<SummaryForm />
 		</>
 	);
