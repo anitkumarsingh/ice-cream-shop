@@ -16,12 +16,16 @@ const Options = ({ optionType }) => {
 	const { total } = useOrderDetails();
 
 	useEffect(() => {
+		const controller = new AbortController();
 		axios
-			.get(`${BASE_URL}/${optionType}`)
+			.get(`${BASE_URL}/${optionType}`, { signal: controller.signal })
 			.then((response) => {
 				setItems(response.data);
 			})
-			.catch((err) => setIsError(true));
+			.catch((err) => {
+				if (err.name !== 'CanceledError') setIsError(true);
+			});
+		return () => controller.abort();
 	}, [optionType]);
 	const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
 	const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();

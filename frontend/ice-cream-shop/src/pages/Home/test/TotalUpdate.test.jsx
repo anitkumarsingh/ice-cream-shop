@@ -56,9 +56,10 @@ describe('Scoops subtotal and topping subtotal updates', () => {
 
 describe('Grand total', () => {
 	test('grand total start with $0.00', () => {
-		render(<Order />);
+		const { unmount } = render(<Order />);
 		const grandTotalHeading = screen.getByRole('heading', { name: /Grand Total : \$/i });
 		expect(grandTotalHeading).toHaveTextContent('0.00');
+		unmount();
 	});
 	test('grand total updates properly if scoops is added first', async () => {
 		const user = userEvent.setup();
