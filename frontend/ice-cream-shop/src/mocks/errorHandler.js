@@ -9,6 +9,10 @@ const errorHandler = () => {
 		}),
 		rest.get(`${BASE_URL}/toppings`, (req, res, ctx) => {
 			return res(ctx.status(500));
+		}),
+
+		rest.post(`${BASE_URL}/order`, (req, res, ctx) => {
+			return res(ctx.status(500));
 		})
 	);
 };

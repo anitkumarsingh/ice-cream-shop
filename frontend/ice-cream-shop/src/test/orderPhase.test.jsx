@@ -3,7 +3,7 @@ import UserEvent from '@testing-library/user-event';
 import App from '../App';
 
 describe('Order phase or happy path', () => {
-	test('Order flow for customer', async () => {
+	test('Place order if both scoops and topping added', async () => {
 		const user = UserEvent.setup();
 		// render app
 		const { unmount } = render(<App />);
@@ -14,7 +14,6 @@ describe('Order phase or happy path', () => {
 		await user.clear(mintInput);
 		await user.type(mintInput, '2');
 		await user.click(hotFudgeChkBox);
-
 		// find and click order button
 		const orderBtn = screen.getByRole('button', { name: 'Confirm order' });
 		await user.click(orderBtn);

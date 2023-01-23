@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import AlertBanner from '../../components/Alert';
 import { BASE_URL } from '../../constants/api';
 import { useOrderDetails } from '../../context/OrderDetails';
 
@@ -34,6 +35,7 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 		resetOrder();
 	};
 	if (isLoading) return <p>Loading...</p>;
+	if (isError) return <AlertBanner />;
 	return (
 		<div className='text-center'>
 			<h1>Thank you!</h1>
