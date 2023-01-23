@@ -6,7 +6,7 @@ describe('Order phase or happy path', () => {
 	test('Order flow for customer', async () => {
 		const user = UserEvent.setup();
 		// render app
-		render(<App />);
+		const { unmount } = render(<App />);
 
 		// add scoops and topping
 		const mintInput = await screen.findByRole('spinbutton', { name: 'Mint chip' });
@@ -42,11 +42,12 @@ describe('Order phase or happy path', () => {
 		await user.click(confirmOrderBtn);
 
 		// confirm order number on confirmation page
-		const orderNumber = screen.getByText('Your order number is', { exact: false });
+		const orderNumber = await screen.findByText('Your order number is', { exact: false });
 		expect(orderNumber).toBeInTheDocument();
 
 		// click "New Order" on confirmation page
 		const newOrderBtn = await screen.findByRole('button', { name: 'Create new order' });
 		expect(newOrderBtn).toBeInTheDocument();
+		unmount();
 	});
 });

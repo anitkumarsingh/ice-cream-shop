@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useOrderDetails } from '../../context/OrderDetails';
 import { formatCurrency } from '../../utils/formatCurrency';
 
@@ -29,7 +30,9 @@ const OrderSummary = ({ setOrderPhase }) => {
 				<h2>Grand Total : {formatCurrency(total.scoops + total.toppings)}</h2>
 				<br />
 				<br />
-				<button onClick={() => setOrderPhase('complete')}>Complete Order</button>
+				<Button variant='secondary' onClick={() => setOrderPhase('complete')}>
+					Complete Order
+				</Button>
 			</div>
 		</>
 	);
