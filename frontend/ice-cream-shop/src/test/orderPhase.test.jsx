@@ -42,7 +42,10 @@ describe('Order phase or happy path', () => {
 		await user.click(confirmOrderBtn);
 
 		// confirm order number on confirmation page
+		const loadingText = await screen.findByText('Loading...');
+		expect(loadingText).toBeInTheDocument();
 		const orderNumber = await screen.findByText('Your order number is', { exact: false });
+		expect(loadingText).not.toBeInTheDocument();
 		expect(orderNumber).toBeInTheDocument();
 
 		// click "New Order" on confirmation page
