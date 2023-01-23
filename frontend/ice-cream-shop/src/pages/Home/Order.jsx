@@ -1,9 +1,10 @@
 import React from 'react';
 import { useOrderDetails } from '../../context/OrderDetails';
 import { formatCurrency } from '../../utils/formatCurrency';
+import SummaryForm from '../Summary/SummaryForm';
 import Options from './Options';
 
-const Order = () => {
+const Order = ({ setOrderPhase }) => {
 	const { total } = useOrderDetails();
 	return (
 		<>
@@ -15,6 +16,7 @@ const Order = () => {
 				<hr />
 				<h2>Grand Total : {formatCurrency(total.scoops + total.toppings)}</h2>
 				<hr />
+				<SummaryForm setOrderPhase={setOrderPhase} />
 			</div>
 		</>
 	);

@@ -16,37 +16,37 @@ describe('Order phase or happy path', () => {
 		await user.click(hotFudgeChkBox);
 
 		// find and click order button
-		const orderBtn = screen.getByRole('button', { name: 'Order Now' });
+		const orderBtn = screen.getByRole('button', { name: 'Confirm order' });
+		await user.click(orderBtn);
+		// accept terms and conditions and click button to confirm order
+		const termsAndConditionCheckbox = screen.getByRole('checkbox', {
+			name: 'I agree to Terms and Conditions'
+		});
+		expect(orderBtn).toBeDisabled();
+		await user.click(termsAndConditionCheckbox);
+		expect(orderBtn).toBeEnabled();
 		await user.click(orderBtn);
 
 		// check summary information based on order
-		const orderSummaryTitle = screen.getByRole('heading', { name: /Order Summary/i });
+		const orderSummaryTitle = await screen.findByRole('heading', {
+			name: 'Order Summary'
+		});
 		const scoopsTotal = screen.getByText('Scoops :$', { exact: false });
 		const toppingTotal = screen.getByText('Toppings :$', { exact: false });
-		const grandTotal = screen.getByText('Grand Total :$', { exact: false });
+		const grandTotal = screen.getByText('Grand Total : $', { exact: false });
 		expect(orderSummaryTitle).toBeInTheDocument();
 		expect(scoopsTotal).toHaveTextContent('4.00');
 		expect(toppingTotal).toHaveTextContent('1.50');
 		expect(grandTotal).toHaveTextContent('5.50');
-
-		// accept terms and conditions and click button to confirm order
-		const orderSubmitBtn = screen.getByRole('button', { name: 'Confirm order' });
-		const termsAndConditionCheckbox = screen.getByRole('checkbox', {
-			name: 'I agree to Terms and Conditions'
-		});
-		expect(orderSubmitBtn).toBeDisabled();
-		await user.click(termsAndConditionCheckbox);
-		expect(orderSubmitBtn).toBeEnabled();
+		const confirmOrderBtn = screen.getByRole('button', { name: /Complete Order/i });
+		await user.click(confirmOrderBtn);
 
 		// confirm order number on confirmation page
-		const orderNumber = screen.getByText(
-			'Order successfully placed with order number :',
-			{ exact: false }
-		);
+		const orderNumber = screen.getByText('Your order number is', { exact: false });
 		expect(orderNumber).toBeInTheDocument();
 
 		// click "New Order" on confirmation page
-		const newOrderBtn = await screen.findByRole('button', { name: 'Place New Order' });
+		const newOrderBtn = await screen.findByRole('button', { name: 'Create new order' });
 		expect(newOrderBtn).toBeInTheDocument();
 	});
 });

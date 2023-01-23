@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, OverlayTrigger, Popover } from 'react-bootstrap';
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
 	const [disabled, setDisabled] = useState(true);
 
 	const popover = (
@@ -18,6 +18,10 @@ const SummaryForm = () => {
 		</span>
 	);
 
+	const submitHandler = (e) => {
+		e.preventDefault();
+		setOrderPhase('review');
+	};
 	return (
 		<>
 			<Form>
@@ -29,7 +33,11 @@ const SummaryForm = () => {
 					/>
 				</Form.Group>
 				<br />
-				<Button variant='primary' type='submit' disabled={disabled}>
+				<Button
+					variant='primary'
+					type='submit'
+					disabled={disabled}
+					onClick={submitHandler}>
 					Confirm order
 				</Button>
 			</Form>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useOrderDetails } from '../../context/OrderDetails';
 import { formatCurrency } from '../../utils/formatCurrency';
 
-const OrderSummary = () => {
+const OrderSummary = ({ setOrderPhase }) => {
 	const { total, optionsCount } = useOrderDetails();
 	const scoopArray = Object.entries(optionsCount.scoops);
 	const scoopsList = scoopArray.map(([key, value]) => (
@@ -27,6 +27,9 @@ const OrderSummary = () => {
 			<ul>{toppingsList}</ul>
 			<div className='mt-5 mb-5'>
 				<h2>Grand Total : {formatCurrency(total.scoops + total.toppings)}</h2>
+				<br />
+				<br />
+				<button onClick={() => setOrderPhase('complete')}>Complete Order</button>
 			</div>
 		</>
 	);
